@@ -1,2 +1,2 @@
-# jovian
+# jovyan
 Jupyter notebook experiments
