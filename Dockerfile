@@ -10,20 +10,23 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libssl-dev \
     libzmq3-dev \
-    gnupg2 \
+    gnupg2
+
+# Install Node.js
+RUN wget -qO- https://deb.nodesource.com/setup_10.x | bash - \
+    && apt-get install -y nodejs
+
+# Install Yarn
+RUN wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
+RUN apt-get update && apt-get install -y --no-install-recommends yarn \
     && apt-get clean -y \
     && apt-get autoremove -y \
     && rm -rf /tmp/* /var/tmp/* \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Node.js
-RUN wget --quiet -O - https://deb.nodesource.com/setup_10.x | bash - \
-    && apt-get install -y nodejs
-
 # Install IJavaScript
-RUN npm config set user 0
-RUN npm config set unsafe-perm true
-RUN npm install -g ijavascript lodash
+RUN yarn global add ijavascript
 
 USER jovyan
 RUN ijsinstall
