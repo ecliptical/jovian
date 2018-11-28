@@ -25,6 +25,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends yarn \
     && rm -rf /tmp/* /var/tmp/* \
     && rm -rf /var/lib/apt/lists/*
 
+# Install Google Drive support
+RUN jupyter labextension install @jupyterlab/google-drive
+
 # Install IJavaScript
 RUN yarn global add ijavascript
 
